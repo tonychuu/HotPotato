@@ -1,4 +1,12 @@
 Rails.application.routes.draw do
+  get 'sessions/new'
+
+  get 'dashboard/welcome'
+
+  resources :users
+
+  get 'users/new'
+
   get 'login/signin'
 
   # The priority is based upon order of creation: first created -> highest priority.
