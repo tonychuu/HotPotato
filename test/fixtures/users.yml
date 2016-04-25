@@ -1,15 +1,11 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  name: 
-  company: 
-  phone: 
-  govid: 
-  notes: MyText
+  firstname: Tony
+  lastname: Chu
+  email: tony.kf.chu@gmail.com
 
 two:
-  name: 
-  company: 
-  phone: 
-  govid: 
-  notes: MyText
+  firstname: Bob
+  lastname: Chu
+  email: bob@gmail.com

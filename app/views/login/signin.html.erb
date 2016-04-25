@@ -61,7 +61,7 @@ License: You must have a valid license purchased only from themeforest(the above
 <!-- BEGIN LOGIN -->
 <div class="content">
 	<!-- BEGIN LOGIN FORM -->
-	<form class="login-form" action="index.html" method="post">
+	<%= form_for :session, url: login_path, html: {class: "login-form"} do |f| %>
 		<h3 class="form-title">Sign In</h3>
 		<div class="alert alert-danger display-hide">
 			<button class="close" data-close="alert"></button>
@@ -105,7 +105,7 @@ License: You must have a valid license purchased only from themeforest(the above
 				<a href="javascript:;" id="register-btn" class="uppercase">Create an account</a>
 			</p>
 		</div>
-	</form>
+	<% end %>
 	<!-- END LOGIN FORM -->
 	<!-- BEGIN FORGOT PASSWORD FORM -->
 	<form class="forget-form" action="index.html" method="post">
