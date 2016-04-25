@@ -28,9 +28,8 @@
 				*4a. Add Equipment
 				*4b. Delete Equipment
 				*4c. Found Equipment
-				*4d. Lost Equipment
-				*4e. Search History
-				*4f. Show All Equipments
+				*4d. Search History
+				*4e. Show All Equipments
 			*5. Manage Rental Orders
 				*5a. Returning Rentals
 					*5a.i.   On-time Normal Returns
@@ -51,23 +50,33 @@
 	*V.		Design Decisions
 
 *II. Table of Definitions:
-	HotPotato:
-		The name of this web application.
 
-	web-app:
-		Web application, a website application that is hosted by a server and is accessed through HTTP requests.
-
-	web application:
-		Refer to web-app.
-
-	user:
-		An user of this application. They are not able to rent equipment as they are administrators, but can login to the website. An user has an email address and a password as the login details.
+	child:
+		The child equipment. This is an equipment that is essential to the functionality of the parent equipment. For example: the battery(child equipment) or the camera strap (child equipment) for a DSLR camera(parent equipment).
 
 	client:
 		Clients are the customers of this rental store and will potentially rent equipment. A client must have at least a first and last name in the database. They are not able to login to the web-app.
 
 	database:
 		The storage component of the web-app. It will store all the information of this web-app, such as: clients, users, equipments, etc.
+
+	db:
+		Refer to database.
+
+	HotPotato:
+		The name of this web application.
+
+	parent:
+		The parent equipment. This is an equipment that can own none to multiple child equipments.
+
+	user:
+		An user of this application. They are not able to rent equipment as they are administrators, but can login to the website. An user has an email address and a password as the login details.
+
+	web-app:
+		Web application, a website application that is hosted by a server and is accessed through HTTP requests.
+
+	web application:
+		Refer to web-app.
 
 
 *III. Main Content:
@@ -90,7 +99,6 @@
 			- Keep a database of equipment and their past and current renters
 			- Keep a database of orders and its respective client and equipment(s)
 
-
 	*B. How to use HotPotato
 
 		*1. Login Screen
@@ -98,11 +106,12 @@
 				When the user accesses the HotPotato website, they are greeted with a login page requesting user to login. The user must login to continue, but may click on the "Remember me" button to speed up login process for next time.
 
 		*2. Dashboard
+
 			*2a. At a glance
 				After user has logged in, they go in the Dashboard. The dashboard is the homepage of everything a user can do, from there a user can add/remove clients, add/remove equipments from inventory, rent out/in equipments to clients, create invoices, etc.
 
 			*2b. Main View
-				The dahsboard's main view contains a summary of how many rental equipments are rented out/in, upcoming due dates for clients to return equipments, etc.
+				The dashboard's main view contains a summary of how many rental equipments are rented out/in, upcoming due dates for clients to return equipments, etc.
 
 			*2c. Menu
 				To the left of the dashboard is the menu, which allows the user to do "overall tasks" such as "Manage Clients", "Manage Equipment", and "Rentals". Under each of the aforementioned task are "detailed tasks". For example, under the overall task "Manage Clients", there are detailed tasks "Add Client", "Remove Client", and "Show Client History". The user can click on either the overall task link or the detailed task and be directed to the respective page
@@ -115,44 +124,62 @@
 				- Show all..........Section *3d
 
 			*3a. Add Client
-				When user clicks on "Add Client" link, they will be forwarded to a page that allows the user to add the new client's details. The details that can be entered are:
-				- First Name (Mandatory)
-				- Last Name (Mandatory)
-				- Company (That the client works at)
-				- Phone Number
-				- Goverment ID Type
-				- ID number
-				- ID photo
-				- Email Address
-				- Home Address
-				- City
-				- Country
-				After the user has entered the client's details, they will be able to click on the Submit button and the information will be stored into the database. The user will then be brought back to the Dashboard with an alert that the client information is saved successfully. If the user doesn't enter information into the mandatory fields, the web app will alert the user that those fields are required and mandatory. The web app will not save the client information until those required fields are set. 
+				Description: 
+					When there is a new client to be added into the db
+
+				Usage:
+					When user clicks on "Add Client" link, they will be forwarded to a page that allows the user to add the new client's details. The details that can be entered are:
+						- First Name (Mandatory)
+						- Middle Name
+						- Last Name (Mandatory)
+						- Company (That the client works at)
+						- Phone Number
+						- Goverment ID Type
+						- ID number
+						- ID photo
+						- Email Address
+						- Home Address
+						- City
+						- Country
+					After the user has entered the client's details, they will be able to click on the Submit button and the information will be stored into the database. The user will then be brought back to the Dashboard with an alert that the client information is saved successfully. If the user doesn't enter information into the mandatory fields, the web app will alert the user that those fields are required and mandatory. The web app will not save the client information until those required fields are set. 
 
 			*3b. Delete Client
-				When user clicks on "Delete Client" link, they will be forwarded to a page that allows the user to search for a client to remove. There is a table of all clients in the database. The user has the option to search for the client by scrolling until the client is found, or via the search field which accepts:
-					- First Name
-					- Last Name
-					- Phone Number
-					- Email Address
-					- ID number
-				The search is filtered in the table as the user types. When the user has found the client in the table, the user can hover over the client's row in the table and an X shows on that row. The user can then click on the X button and an alert requests confirmation of deleting the client. After completion, the client is deleted from database.
+				Description: 
+					When a client must be removed from the db
 
-			*3c. Search History
-				When user clicks on "Search History", they are moved to a page with a search area, and a table of all clients. The user has the option to search for the client by scrolling until the client is found, or via the search field which accepts:
-					- First Name
-					- Last Name
-					- Phone Number
-					- Email Address
-					- ID number
-				The search is filtered in the table as the user types. When the user has found the client in the table, the user can hover over the client's row in the table an "opened book" icon appears for that client's row. The user clicks on the icon and they are directed to a page which shows all the rented equipment this client has rented in the past(The client's history), the client's information at the top, and days till equipments are due (if the client is currently renting equipment).
+				Usage:
+					When user clicks on "Delete Client" link, they will be forwarded to a page that allows the user to search for a client to remove. There is a table of all clients in the database. The user has the option to search for the client by scrolling until the client is found, or via the search field which accepts:
+						- First Name
+						- Last Name
+						- Phone Number
+						- Email Address
+						- ID number
+					The search is filtered in the table as the user types. When the user has found the client in the table, the user can hover over the client's row in the table and an X shows on that row. The user can then click on the X button and an alert requests confirmation of deleting the client. After completion, the client is deleted from database.
+
+			*3c. Search for Client
+				Description:
+					When a client needs to be found from the db. The user can also find out which equipments has been borrowed from which client.
+
+				Usage:
+					When user clicks on "Search for Client", they are moved to a page with a search area, and a table of all clients. The user has the option to search for the client by scrolling until the client is found, or via the search field which accepts:
+						- First Name
+						- Last Name
+						- Phone Number
+						- Email Address
+						- ID number
+					The search is filtered in the table as the user types. When the user has found the client in the table, the user can hover over the client's row in the table an "opened book" icon appears for that client's row. The user clicks on the icon and they are directed to a page which shows all the rented equipment this client has rented in the past(The client's history), the client's information at the top, and days till equipments are due (if the client is currently renting equipment).
 
 			*3d. Show All
-				Clicking on the overall task "Show All", takes the user to a table of all the clients. There are 4 buttons above the table:
-				- "Add Client"
-				- "Delete Client"
-				- "Lost Equipment"
-				- "Search History"
+				Description:
+					When all the clients in the db needs to be shown
+
+				Usage:
+					When user clicks on "Show All", they are moved to a page with a table of all the clients. There are 4 buttons above the table:
+					- "Add Client"
+					- "Delete Client"
+					- "Lost Equipment"
+					- "Search History"
+
 				Each row in the table represents a client, and each column represents a type of information for clients. Clicking on a client in the table will link to that client's page. On top of the table are the detailed tasks "Add Client", "Remove Client", "Show Client History" and a search field. The search field searches for a particular client and will filter the mentioned table to the clients that fit that description as the user types.
 
 		*4. Manage Equipment
@@ -163,128 +190,182 @@
 				- Show all..........Section *4d
 
 			*4a. Add Equipment
-				When user clicks on "Add Equipment" link, they will be forwarded to a page that allows the user to add the new equipment's details. The details that can be entered are:
-				- Brand (Mandatory)
-				- Model (Mandatory)
-				- Serial Number
-				- Category
-				- Cost
+				Description:
+					When a new equipment needs to be added into the db
 
-				After the user has entered the equipment's details, they will be able to click on the Submit button and the information will be stored into the database. The user will then be brought to a page that has generated a barcode for the equipment. The user will be able to print the barcode and physically place it onto the equipment. If the user doesn't enter information into the mandatory fields, the web app will alert the user that those fields are required and mandatory. The web app will not save the equipment's information until those required fields are set. 
+				Usage:
+					When user clicks on "Add Equipment" link, they will be forwarded to a page that allows the user to add the new equipment's details. The details that can be entered are:
+						- Brand (Mandatory)
+						- Model (Mandatory)
+						- Serial Number
+						- Category
+						- Cost
+
+					After the user has entered the equipment's details, they will be able to click on the Submit button and the information will be stored into the database. The user will then be brought to a page that has generated a barcode for the equipment. The user will be able to print the barcode and physically place it onto the equipment. If the user doesn't enter information into the mandatory fields, the web app will alert the user that those fields are required and mandatory. The web app will not save the equipment's information until those required fields are set. 
 
 			*4b. Delete Equipment
-				When user clicks on "Delete Equipment" link, they will be forwarded to a page that allows the user to search for an equipment to remove. There is a table of all equipment in the database. The user has the option to search for the equipment by scrolling until the equipment is found, or via the search field which accepts:
-					- Brand
-					- Model
-					- Serial Number
-					- Category
+				Description:
+					When a equipment must be removed from the db. "Delete Equipment" will remove an equipment from the db.
 
-				The search is filtered in the table as the user types. When the user has found the equipment in the table, the user can hover over the equipment's row in the table and an X shows on that row. The user can then click on the X button and an alert requests confirmation of deleting the equipment. After completion, the equipment is deleted from database.
+				Usage:
+					When user clicks on "Delete Equipment" link, they will be forwarded to a page that allows the user to search for an equipment to remove. There is a table of all equipment in the database. The user has the option to search for the equipment by scrolling until the equipment is found, or via the search field which accepts:
+						- Brand
+						- Model
+						- Serial Number
+						- Category
+
+					The search is filtered in the table as the user types. When the user has found the equipment in the table, the user can hover over the equipment's row in the table and an X shows on that row. The user can then click on the X button and an alert requests confirmation of deleting the equipment. After completion, the equipment is deleted from database.
 
 			*4c. Found Equipment
-				TODO
-				If an equipment was declared lost, but later found
+				Usage:
+					If an equipment was declared lost, but found later. "Found Equipment" will set the equipment back to usable and also uncharge the client for the lost fee, but charge them for the late fee (if equipment is returned after the due date).
 
-				When user clicks on "Found Equipment" they are taken to a page with a search area. The user can enter the following to find 
-			*4d. Lost Equipment
-				TODO 
-				When an equipment is lost by a client, the user
-
-			*4e. Search History
-				When user clicks on "Search History", they are moved to a page with a search area, and a table of all equipments. The user has the option to search for the equipment by scrolling until the equipment is found, or via the search field which accepts:
-					- Brand
-					- Model
-					- Serial Number
-					- Category
-					- Cost of Equipment
-					- Rental Cost
-				The search is filtered in the table as the user types. When the user has found the equipment in the table, the user can hover over the equipment's row in the table an "opened book" icon appears for that equipment's row. The user clicks on the icon and they are directed to a page which shows all the clients this equipment has been rented by in the past(The equipment's history), the equipment's information at the top, and days till this equipment is to be returned (if the equipment is currently being rented).
-
-			*4f. Show All
-				When user clicks on "Show All", they are moved to a page which shows all the equipments in a table. There are 4 buttons above the table:
-				"Add Equipment"
-				"Remove Equipment"
-				"Lost Equipment"
-				"Search History"
-				Any of the above buttons will take the user to the detailed task pages. There is also a search field above the table that can search for a particular equipment.
-
-		*5. Manage Rental Orders
-
-			*5a. Returning Rentals
-				When user clicks on "Returning Rentals", they are moved to a page with a table of all orders that has not been returned. The user can find the order from that table, or search for it in the search box. The search box accepts:
-					- Order number
-					- Name of the client that is associated with the order
-					- Phone number of the client that is associated with the order
-					- Email of the client that is associated with the order
-				Once the client is found on the table, the user clicks on the order's row on the table to open the page for that order. Each equipment in that order form will have three checkboxes:
-					-Returned
-					-Overdue
-					-Lost
-				The user can then verify the equipment(s) that were rented out in the order are the ones that the client is bringing back by:
-					- Scanning the barcode on the equipment and the web app will automatically checkmark the "Returned" box
-					- Manually verifying the brand, model, and serial number of the equipment being returned
-
-				If the user chooses the scan the barcode, the equipment associated with the barcode will have a tick mark next to it on the table indicating that the equipment is returned.
-				If the user verifies manually, the user will have to press the checkmark box manually.
-
-				The following are different ways a return process finishes:
-
-				*5a.i. On-time Normal Returns
-					The user clicks on the "Finish" button to complete the equipment return process with no additional steps required for the return process.
-
-				*5a.ii. Missing Equipment Returns
-					If at least one equipment has the "Missing" box checked, the equipment return process still completes, but the missing equipment is not considered returned. The missing equipment will be shown in the missing section of the web-app and is considered still being rented out by the current client.
-
-				*5a.iii. Lost Equipment Returns
-					If at least one equipment has the "Lost" box checked, a new order is created with the lost equipment(s) in the order and the required amount to be paid. "Returned" equipments will go through the return process, and "Missing" equipments will be marked overdue and will also go through the return process.
-
-				*5a.iv. Overdue Returns
-					If the equipments are returned late, after the return process a new order will be created with the late payment charge on the order form.
-
-			*5b. Outgoing Rentals
-				When user clicks on "Outgoing Rentals", they are moved to a page with a table of all the store's equipment. The user can find the equipment by scrolling down until they find it, or search for it in the search box. The search box accepts:
-					- Brand
-					- Model
-					- Serial Number
-					- Category
-				Any equipment that are avaiable to rent will have a button next to it that says "Rent out". Equipments that are already rented out will still be shown on the table. However, it will not be rent-able, be greyed out, and also have a label "Rented. Expected return date: DD/MM/YY".
-				When a user clicks on the "Rent out" button, four things will happen:
-					1. That equipment will be placed in the shopping cart
-					2. That equipment will now be greyed out on the table
-					3. That equipment's button will become unclickable
-					4. A label on the row of that equipment will say "In shopping cart"
-				After the user has all the equipments to rent out in the shopping cart, the user can click on the shopping cart on the top right of the page. Clicking on the shopping cart will take the user to the shopping cart page, where all the equipment the user has clicked "Rent out" is there. Also, for each of the equipment that is a parent equipment, the children equipment will also show in the shopping cart.
-				If user has more equipment that needs to be in the shopping cart, the user can click on "Outgoing rentals" again in the menu.
-				If user is satisfied with the shopping cart, the user clicks on the checkout button which will take him to the client information page that requires the information of the client that will be renting the equipment. On the client information page, there is a search area and a table of all clients. The user has the option to search for the client by scrolling until the client is found, or via the search field which accepts:
+				When user clicks on "Found Equipment" they are taken to a page with a search area. The user can enter the following to find the supposed lost equipment:
+					- Equipment ID (either the parent, or the child)
+					- Order ID (that is associated with the lost equipment)
+					- Client ID
 					- First Name
 					- Last Name
-					- Phone Number
-					- Email Address
-					- ID number
-				The search is filtered in the table as the user types. When the user has found the client in the table, the user can hover over the client's row in the table an "Select" button appears for that client's row. When the user has selected a client, the user can click "Next" and be taken to to the summary page, which has all the shopping cart's equipment, and the client's information. After verification that the information is correct, the user may click on the box "Email invoice to client" which will send the invoice to the client's email that is on file after completing the order. After that, the user clicks "Finish order" and the user will be taken to the completion page. The page allows the user to click on 4 buttons:
-					1. Print Invoice
-						Clicking on "Print Invoice" opens a new tab with the printable invoice. The generated invoice will be placed on a "Recent Orcer" list.
-					2. Print Later
-						Clicking on "Print Later" returns user to the Dashboard and generated invoice will be placed on a "Pending Print Invoice" list.
-					3. Finish
-						Clicking on "Finish" returns user to the Dashboard. The generated invoice will be placed on a "Recent Invoice" list.
+					- Phone number
+					- Email address
+
+				A table will show the lost equipment. The user clicks on the equipment and then "Un-lose equipment" button. This will take the user to a page that summarizes the actions that will be taken: The equipment will be set back to rentable, and the charge for lost equipment in the invoice will be either removed or replaced with an overdue fee (if the equipment is past due at the time of returning the equipment). The user can finalize the actions by clicking "Submit" and be taken to a page where the new invoice can be printed.
+
+			*4d. Search for Equipment
+				Description:
+					When an equipment in the db needs to be found, or when all the equipments in the db needs to be shown. The user can also find out about this history of an equipment (which client has borrowed this equipment in the past)
+
+				Usage:
+					When user clicks on "Search Equipment", they are moved to a page with a search area, and a table of all equipments. The user has the option to search for the equipment by scrolling until the equipment is found, or via the search field which accepts:
+						- Brand
+						- Model
+						- Serial Number
+						- Category
+						- Cost of Equipment
+						- Rental Cost
+					The search is filtered in the table as the user types. When the user has found the equipment in the table, the user can hover over the equipment's row in the table an "opened book" icon appears for that equipment's row. The user clicks on the icon and they are directed to a page which shows all the clients this equipment has been rented by in the past(The equipment's history), the equipment's information at the top, and days till this equipment is to be returned (if the equipment is currently being rented).
+
+			*4e. Show All
+				Description:
+					When all the available tasks available for handling equipments needs to be shown.
+
+				Usage:
+					When user clicks on "Show All", they are moved to a page which shows all the equipments in a table. There are 4 buttons above the table:
+					"Add Equipment"
+					"Remove Equipment"
+					"Lost Equipment"
+					"Search Equipment"
+					Any of the above buttons will take the user to the detailed task pages.
+
+		*5. Manage Rental Orders
+			Clicking on "Manage Rental Orders" opens the menu to the following tasks:
+				- Returning Rentals........Section *5a
+				- Outgoing Rentals.........Section *5b 
+
+			*5a. Returning Rentals
+				Description: 
+					When rented equipments need to be processed for returns. This task will make the necessary changes in the db.
+
+				Usage:
+					When user clicks on "Returning Rentals", they are moved to a page with a table of all orders that has not been returned. The user can find the order from that table, or search for it in the search box. The search box accepts:
+						- Order number
+						- Name of the client that is associated with the order
+						- Phone number of the client that is associated with the order
+						- Email of the client that is associated with the order
+					Once the client is found on the table, the user clicks on the order's row on the table to open the page for that order. Each equipment in that order form will have three checkboxes:
+						-Returned
+						-Overdue
+						-Lost
+					The user can then verify the equipment(s) that were rented out in the order are the ones that the client is bringing back by:
+						- Scanning the barcode on the equipment and the web app will automatically checkmark the "Returned" box
+						- Manually verifying the brand, model, and serial number of the equipment being returned
+
+					If the user chooses the scan the barcode, the equipment associated with the barcode will have a tick mark next to it on the table indicating that the equipment is returned.
+					If the user verifies manually, the user will have to press the checkmark box manually.
+
+					The following are different ways a return process finishes:
+
+					*5a.i. On-time Normal Returns
+						The user clicks on the "Finish" button to complete the equipment return process with no additional steps required for the return process. The equipments that are successfully returned will have its respected rented boolean value set to false.
+
+					*5a.ii. Missing Equipment Returns
+						If at least one equipment has the "Missing" box checked, the equipment return process still completes, but the missing equipment is not considered returned. The missing equipment will be shown in the missing section of the web-app and is considered still being rented out by the current client. The equipments that are successfully returned will have its respected rented boolean value set to false.
+
+					*5a.iii. Lost Equipment Returns
+						If at least one equipment has the "Lost" box checked, a new order is created with the lost equipment(s) in the order and the required amount to be paid. The lost equipment will have its respected lost boolean value set to true. "Returned" equipments will go through the return process, and "Missing" equipments will be marked overdue and will also go through the return process. The equipments that are successfully returned will have its respected rented boolean value set to false.
+
+					*5a.iv. Overdue Returns
+						If the equipments are returned late, after the return process a new order will be created with the late payment charge on the order form. The equipments that are successfully returned will have its respected rented boolean value set to false.
+
+			*5b. Outgoing Rentals
+				Description:
+					When equipments need to be processed in order for a client to rent them. This task will make the necessary changes in the db.
+
+				Usage:
+					When user clicks on "Outgoing Rentals", they are moved to a page with a table of all the store's equipment. The user can find the equipment by scrolling down until they find it, or search for it in the search box. The search box accepts:
+						- Brand
+						- Model
+						- Serial Number
+						- Category
+					Any equipment that are avaiable to rent will have a button next to it that says "Rent out". Equipments that are already rented out will still be shown on the table. However, it will not be rent-able, be greyed out, and also have a label "Rented. Expected return date: DD/MM/YY".
+					When a user clicks on the "Rent out" button, four things will happen:
+						1. That equipment will be placed in the shopping cart
+						2. That equipment will now be greyed out on the table
+						3. That equipment's button will become unclickable
+						4. A label on the row of that equipment will say "In shopping cart"
+					After the user has all the equipments to rent out in the shopping cart, the user can click on the shopping cart on the top right of the page. Clicking on the shopping cart will take the user to the shopping cart page, where all the equipment the user has clicked "Rent out" is there. Also, for each of the equipment that is a parent equipment, the children equipment will also show in the shopping cart.
+					If user has more equipment that needs to be in the shopping cart, the user can click on "Outgoing rentals" again in the menu.
+					If user is satisfied with the shopping cart, the user clicks on the checkout button which will take him to the client information page that requires the information of the client that will be renting the equipment. On the client information page, there is a search area and a table of all clients. The user has the option to search for the client by scrolling until the client is found, or via the search field which accepts:
+						- First Name
+						- Last Name
+						- Phone Number
+						- Email Address
+						- ID number
+					The search is filtered in the table as the user types. When the user has found the client in the table, the user can hover over the client's row in the table an "Select" button appears for that client's row. When the user has selected a client, the user can click "Next" and be taken to to the summary page, which has all the shopping cart's equipment, and the client's information. After verification that the information is correct, the user may click on the box "Email invoice to client" which will send the invoice to the client's email that is on file after completing the order. After that, the user clicks "Finish order". The equipments that are in the shopping cart will have its rented boolean value as true in the db, and the user will be taken to the completion page. The page allows the user to click on 4 buttons:
+						1. Print Invoice
+							Clicking on "Print Invoice" opens a new tab with the printable invoice. The generated invoice will be placed on a "Recent Orcer" list.
+						2. Print Later
+							Clicking on "Print Later" returns user to the Dashboard and generated invoice will be placed on a "Pending Print Invoice" list.
+						3. Finish
+							Clicking on "Finish" returns user to the Dashboard. The generated invoice will be placed on a "Recent Invoice" list.
 		
 		*6. Manage Invoices
-			Clicking on "Manage Invoices" takes the user to
-			//TODO
+			Clicking on "Manage Invoices" opens the menu to the following tasks:
+					- Recent Invoices...........Section *6a
+					- Pending Print Invoices....Section *6b 
+					- Search Rental Invoices....Section *6c
+					- Show All..................Section *6d
+
 			*6a. Recent Invoices
-				When the user clicks on "Recent Invoices", the user is taken to a page that shows the most recent 10 invoices. The user can click on the invoices and the user will be taken to that invoice page where the user can see which client and equipment(s) are associated with the invoice. The user can also print the invoice.
+				Description:
+					When the most recent invoices need to be seen.
+
+				Usage:
+					When the user clicks on "Recent Invoices", the user is taken to a page that shows the most recent 25 invoices. The user can click on the invoices and the user will be taken to that invoice page where the user can see which client and equipment(s) are associated with the invoice. The user can also print the invoice.
+
 			*6b. Pending Print Invoices
-				When the user clicks on "Pending Print Invoices", they are taken to a page with a list of only invoices that have not been printed yet. The user can click on the invoices and the user will be taken to that invoice page where the user can see which client and equipment(s) are associated with the invoice. The user can also print the invoice.
+				Description:
+					Invoices that have never been printed shows up here. Invoices printed at least once do not show up here. This task will search for invoices in the db with the aforementioned condition.
+
+				Usage:
+					When the user clicks on "Pending Print Invoices", they are taken to a page with a list of only invoices that have not been printed yet. The user can click on the invoices and the user will be taken to that invoice page where the user can see which client and equipment(s) are associated with the invoice. The user can also print the invoice.
+
 			*6c. Search Rental Invoices
-				When the user clicks on "Search Rental Invoices", they are taken to a page with a search box. The user can enter the following details into the search box to find an invoice:
-					- Invoice ID
-					- Client's first name associated with this invoice
-					- Client's last name associated with this invoice
-					- Client's phone number associated with this invoice
-					- Client's email associated with this invoice
+				Description:
+					When a invoice needs to be found. This task will search the db.
+
+				Usage:
+					When the user clicks on "Search Rental Invoices", they are taken to a page with a search box. The user can enter the following details into the search box to find an invoice:
+						- Invoice ID
+						- Client's first name associated with this invoice
+						- Client's last name associated with this invoice
+						- Client's phone number associated with this invoice
+						- Client's email associated with this invoice
+					The search is filtered in the table as the user types. When the user has found the invoice in the table, the user can hover over the invoice's row in the table an "opened book" icon appears for that equipment's row. The user clicks on the icon and they are directed to a page which shows all the information for the particular invoice.
+
 		
-		*7. Manage Finance
+		*7. Finance and Statistics
+			//TODO section
 			*7a. Show Finance Report
 				When the user clicks on "Show Finance Report", they are taken to a summary of how the store is doing financially. User will be able to see:
 					- Earnings to date
@@ -294,8 +375,76 @@
 					- Earning growth since last month
 					- Total cost of lost equipment
 
-*IV. Architecture
+			*7b. Statistics
+				//TODO
+					Most popular item for rentals
+					Least popular item for rentals
+					Most expensive item
+					Average item cost
+					Total Clients
+					Total Equipments
+					Invoice orders to date
+					Number of lost items
 
+*IV. Architecture
+	Database:
+		HotPotato uses the PostgreSQL db, it also uses Ruby on Rail's active migration.
+
+		A User model shall have:
+				- 1 		id(primarykey:integer)
+				- 1 		created_at(date)
+				- 1 		updated_at(date)
+				- 1 		first_name(string)
+				- 1 		last_name(string)
+				- 1 		email_address(unique:string)
+				- 1 		password(string)
+
+		A Client model shall have:
+				- 1 		client_id(primarykey:integer)
+				- 1 		first_name(string)
+				- 0..1 	middle_name(string)
+				- 1 		last_name(string)
+				- 0..1 	company(string)
+				- 0..1 	phone_number(string)
+				- 0..1	goverment_id_type(string)
+				- 0..1	id_number(string)
+				- 0..1	id_photo(bytea)
+				- 0..1	email_address(string)
+				- 0..1	home_address(string)
+				- 0..1	city(string)
+				- 0..1	country(string)
+
+		An Equipment model shall have:
+				- 1 		equipment_id(primarykey:integer)
+				- 1			brand(string)
+				- 1			model(string)
+				- 1 		rental_cost(real)
+				- 1			msrp_cost(real)
+				- 1 		rented(boolean)
+				- 1 		lost(boolean)
+				- 1 		times_rented(integer)
+				- 0..1 	serial_number(string)
+				- 0..1	category(string)
+				- 0..1 	parent_equipment_id(integer)
+				- 0..* 	child_equipment_id(integer)
+
+		An Order model shall have:
+				- 1 		order_id(primarykey:integer)
+				- 1 		client_id(foreignkey:integer)
+				- 1..* 	equipment_id(foreignkey:integer)
+				- 1 		created_at(date)
+				- 1 		due_date(date)
+				- 1 		printed(boolean)
+
+		The Shopping_Cart model shall have:
+				- 1..* 	equipment_id(foreignkey:integer) 		
+
+
+*V. Design Decisions
 	This document explains the reasons behind designing the application in the way it was designed. It is categorized with respect to UserManual.txt, so for example section 1a in UserManual.txt talks about the login page, then (1ai, 1aii, 1aiii, etc.) in Architecture.txt refers to the login page as well.
 
-	1ai. The reason why there is no signup button/link in the signin page is because this site is designed to be an admin only site. Where only admins can access the dashboard and manage the users
+	1a. The reason why there is no signup button/link in the signin page is because this site is designed to be an admin only site. Where only admins can access the dashboard and manage the users
+
+	6. Manage Invoices menu does not have a "Show All" option because it is unnecessary. Listing invoices from ascending order is pointless because as the business grows, there is no longer a need to see the first order ever created. Listing invoices from descending order is also pointless because that is what the "Recent Order" page is for. Archived orders can also be searched via the "Search Order" page.
+
+
