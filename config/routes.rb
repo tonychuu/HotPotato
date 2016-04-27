@@ -1,19 +1,22 @@
 Rails.application.routes.draw do
-  get 'sessions/new'
 
-  get 'dashboard/welcome'
+  get 'dashboards/index'
 
   resources :users
 
   get 'users/new'
 
-  get 'login/signin'
+  get     'login'   => 'sessions#new'
+  post   'login'   => 'sessions#create'
+  delete  'logout'  => 'sessions#destroy'
+
+  get 'dashboard' => 'dashboards#index'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
   # You can have the root of your site routed with "root"
-  root 'login#signin'
+  root 'sessions#new'
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
