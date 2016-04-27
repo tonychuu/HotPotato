@@ -57,6 +57,11 @@ License: You must have a valid license purchased only from themeforest(the above
 	<img src="assets/metronomic/admin/logo-big.png" alt=""/>
 	</a>
 </div>
+<div class="container">
+	<% flash.each do |message_type, message| %>
+	    <div class="alert alert-<%= message_type %>"><%= message %></div>
+	<% end %>
+</div>
 <!-- END LOGO -->
 <!-- BEGIN LOGIN -->
 <div class="content">
@@ -75,7 +80,8 @@ License: You must have a valid license purchased only from themeforest(the above
 			<%= f.password_field :password, class: "form-control form-control-solic placeholder-no-fix", autocomplete: "off", placeholder: "Password"%>
 		</div>
 		<div class="form-actions">
-			<button type="submit" class="btn btn-success uppercase">Login</button>
+			<%= f.submit class: "btn btn-success uppercase", value: "Login" %>
+			
 			<label class="rememberme check">
 			<input type="checkbox" name="remember" value="1"/>Remember </label>
 			<a href="javascript:;" id="forget-password" class="forget-password">Forgot Password?</a>
@@ -97,11 +103,6 @@ License: You must have a valid license purchased only from themeforest(the above
 				</li>
 			</ul>
 		</div>
-		<div class="create-account">
-			<p>
-				<a href="javascript:;" id="register-btn" class="uppercase">Create an account</a>
-			</p>
-		</div>
 	<% end %>
 	<!-- END LOGIN FORM -->
 	<!-- BEGIN FORGOT PASSWORD FORM -->
@@ -119,50 +120,8 @@ License: You must have a valid license purchased only from themeforest(the above
 		</div>
 	</form>
 	<!-- END FORGOT PASSWORD FORM -->
-	<!-- BEGIN REGISTRATION FORM -->
-	<%= form_for :user, url: users_path, html: {class: "register-form"} do |f| %>
-		<h3>Create new client</h3>
-		<p class="hint">
-			 Enter client's personal details below:
-		</p>
-		<div class="form-group">
-			<%= f.text_field(:firstname, class: "form-control placeholder-no-fix", placeholder: "First Name *") %>
-		</div>
-		<div class="form-group">
-			<%= f.text_field(:lastname, class: "form-control placeholder-no-fix", placeholder: "Last Name *") %>
-		</div>
-		<div class="form-group">
-			<%= f.email_field(:email, class: "form-control placeholder-no-fix", placeholder: "Email Address *") %>
-		</div>
-		<div class="form-group">
-			<%= f.text_field(:company, class: "form-control placeholder-no-fix", placeholder: "Company Name") %>
-		</div>
-		<div class="form-group">
-			<%= f.text_field(:phone, class: "form-control placeholder-no-fix", placeholder: "Phone Number") %>
-		</div>
-		<div class="form-group">
-			<%= f.text_field(:address, class: "form-control placeholder-no-fix", placeholder: "Home Address") %>
-		</div>
-		<div class="form-group">
-			<%= f.text_field(:city, class: "form-control placeholder-no-fix", placeholder: "City/Town") %>
-		</div>
-		<div class="form-group">
-			<%= f.select(:idtype, ["Driver License", "Passport"], {}, prompt: "Id Type", class: "form-control") %>
-		</div>
-		<div class="form-group">
-			<%= f.text_field(:govid, class: "form-control placeholder-no-fix", placeholder: "ID number") %>
-		</div>
-		<div class="form-group">
-			<%= f.text_area(:notes, class: "form-control placeholder-no-fix", placeholder: "Notes") %>
-		</div>
-		<%= hidden_field_tag :authenticity_token, form_authenticity_token %>
-		<div class="form-actions">
-			<button type="button" id="register-back-btn" class="btn btn-default">Back</button>
-			<button type="submit" id="register-submit-btn" class="btn btn-success uppercase pull-right">Submit</button>
-		</div>
-	<% end %>
-	<!-- END REGISTRATION FORM -->
 </div>
+<%= debug(params) if Rails.env.development? %>
 <div class="copyright">
 	 2014 © Metronic. Admin Dashboard Template.
 </div>
