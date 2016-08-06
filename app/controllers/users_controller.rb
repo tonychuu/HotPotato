@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
 	def create
-		@user = User.new(user_params.merge(:role => "client"))
+		@user = User.new(user_params)
 
 		@user.save
 
@@ -8,6 +8,6 @@ class UsersController < ApplicationController
 	end
 
 	def user_params
-		params.require(:user).permit(:company, :phone, :govid, :notes, :firstname, :lastname, :email, :address, :city, :country, :idtype)
+		params.require(:user).permit(:name, :email)
 	end
 end

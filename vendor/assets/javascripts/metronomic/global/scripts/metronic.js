@@ -584,7 +584,6 @@ var Metronic = function() {
             handleUniform(); // hanfle custom radio & checkboxes
             handleiCheck(); // handles custom icheck radio and checkboxes
             handleBootstrapSwitch(); // handle bootstrap switch plugin
-            handleScrollers(); // handles slim scrolling contents 
             handleFancybox(); // handle fancy box
             handleSelect2(); // handle custom Select2 dropdowns
             handlePortletTools(); // handles portlet action bar functionality(refresh, configure, toggle, remove)
@@ -612,7 +611,6 @@ var Metronic = function() {
             handleiCheck(); // handles custom icheck radio and checkboxes
             handleBootstrapSwitch(); // handle bootstrap switch plugin
             handleDropdownHover(); // handles dropdown hover       
-            handleScrollers(); // handles slim scrolling contents 
             handleSelect2(); // handle custom Select2 dropdowns
             handleFancybox(); // handle fancy box
             handleDropdowns(); // handle dropdowns

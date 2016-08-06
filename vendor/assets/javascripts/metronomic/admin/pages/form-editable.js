@@ -124,6 +124,42 @@ var FormEditable = function () {
             }
         });
 
+        $('#middlename').editable({
+
+        })
+
+        $('#lastname').editable({
+
+        })
+
+        $('#company').editable({
+
+        })
+
+        $('#phone').editable({
+
+        })
+
+        $('#govidtype').editable({
+
+        })
+
+        $("#govidnum").editable({
+
+        })
+
+        $("#email").editable({
+
+        })
+
+        $("#homeaddress").editable({
+
+        })
+
+        $("#city").editable({
+
+        })
+
         $('#sex').editable({
             prepend: "not selected",
             inputclass: 'form-control',

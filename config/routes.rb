@@ -1,8 +1,25 @@
 Rails.application.routes.draw do
 
+
+  get 'equipments/index'
+
+  get 'equipments/show'
+
+  get 'equipments/create'
+
+  get 'equipments/new'
+
+  get 'clients/edit'
+
+  get 'clients/index'
+  get 'clients/delete' => 'clients#delete'
+  get 'clients/search' => 'clients#show'
+
   get 'dashboards/index'
 
   resources :users
+  resources :clients
+  resources :equipments
 
   get 'users/new'
 

@@ -167,7 +167,7 @@ Page Header
   background: #3f4f62;
 }
 .page-header.navbar .menu-toggler {
-  background-image: url(../../img/sidebar_toggler_icon_darkblue.png);
+  background-image: url(../../admin/sidebar_toggler_icon_darkblue.png);
 }
 
 /* Default Horizontal Menu */
@@ -524,7 +524,7 @@ Page Header
 }
 .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .sidebar-toggler,
 .page-sidebar .sidebar-toggler {
-  background: url(../../img/sidebar_inline_toggler_icon_darkblue.jpg);
+  background: url(../../admin/sidebar_inline_toggler_icon_darkblue.jpg);
 }
 .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .sidebar-search .input-group,
 .page-sidebar .sidebar-search .input-group {

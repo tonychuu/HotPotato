@@ -412,7 +412,7 @@
 				- 0..1	email_address(string)
 				- 0..1	home_address(string)
 				- 0..1	city(string)
-				- 0..1	country(string)
+				- 1			country_code(string)
 
 		An Equipment model shall have:
 				- 1 		equipment_id(primarykey:integer)
